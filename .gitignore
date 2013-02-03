@@ -1,0 +1,3 @@
+
+# Don't check in weka.jar (instead, copy or symlink on your local machine)
+weka.jar
