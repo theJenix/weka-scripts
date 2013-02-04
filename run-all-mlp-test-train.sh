@@ -18,9 +18,9 @@ do
     for momentum in "${momentums[@]}"
     do
       
-      echo "Running ./run-mlp.sh $1 $epoch 0.$learningrate 0.$momentum $1_mlp_${epoch}_lr0${learningrate}_m0${momentum}.out"
-      echo "Running ./run-mlp.sh $1 $epoch 0.$learningrate 0.$momentum $1_mlp_${epoch}_lr0${learningrate}_m0${momentum}.out" > $weka_out/run-all-mlp.out
-      ./run-mlp.sh $1 $epoch 0.$learningrate 0.$momentum $1_mlp_${epoch}_lr0${learningrate}_m0${momentum}.out
+      echo "Running ./run-mlp-test-train.sh $1 $epoch 0.$learningrate 0.$momentum $1_mlp_${epoch}_lr0${learningrate}_m0${momentum}_tt.out"
+      echo "Running ./run-mlp-test-train.sh $1 $epoch 0.$learningrate 0.$momentum $1_mlp_${epoch}_lr0${learningrate}_m0${momentum}_tt.out" > $weka_out/run-all-mlp.out
+      ./run-mlp-test-train.sh $1 $epoch 0.$learningrate 0.$momentum $1_mlp_${epoch}_lr0${learningrate}_m0${momentum}_tt.out
     done
   done
 done
