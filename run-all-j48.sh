@@ -21,10 +21,7 @@ do
   done
 done
 
-rm -f $weka_out/$1_j48_temp.out
-rm -f $weka_out/$1_j48_summary.out
-./extractSummary.sh $weka_out/$1_j48* > $weka_out/$1_j48_temp.out
-cat $weka_out/$1_j48_temp.out | sed -e "s/^.*$1_j48_c\([0-9\.u]\+\)\_mo\([0-9\.]\+\)\.out/\1,\2/g" > $weka_out/$1_j48_summary.out
+. extractAndProcessJ48.sh $1
 
 T="$(($(date +%s)-T))"
 echo "Total Elapsed Time (seconds): ${T}" >> $weka_out/run-all-j48.out
