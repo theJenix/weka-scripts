@@ -6,9 +6,6 @@ set -e
 
 . build-params.sh $1
 
-# Get time as a UNIX timestamp (seconds elapsed since Jan 1, 1970 0:00 UTC)
-T="$(date +%s)"
-
 . cleanOutput.sh $1_j48
 
 ./extractSummary.sh $weka_out/$1_j48* > $weka_out/$1_j48_temp.out 
@@ -20,7 +17,4 @@ grep "Error on test"  -A9 $weka_out/$1_j48_summary.out | grep -v "Error" | sed -
 grep "cross" -A9 $weka_out/$1_j48_summary.out | grep -v "cross" | sed -e 's/^--$//g' | sed -e 's/[0-9\.u]\+,[0-9\.]\+,$//g' > $weka_out/$1_j48_summary_cross.out
 
 . cleanTemp.sh $1_j48
-
-T="$(($(date +%s)-T))"
-echo "Total Elapsed Time (seconds): ${T}" >> $weka_out/run-all-j48.out
 

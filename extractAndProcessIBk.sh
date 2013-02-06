@@ -5,9 +5,6 @@ set -e
 
 . build-params.sh $1
 
-# Get time as a UNIX timestamp (seconds elapsed since Jan 1, 1970 0:00 UTC)
-T="$(date +%s)"
-
 . cleanOutput.sh $1_ibk
 
 ./extractSummary.sh $weka_out/$1_ibk* > $weka_out/$1_ibk_temp.out 
@@ -20,5 +17,3 @@ grep "cross" -A9 $weka_out/$1_ibk_summary.out | grep -v "cross" | sed -e 's/^--$
 
 . cleanTemp.sh $1_ibk
 
-T="$(($(date +%s)-T))"
-echo "Total Elapsed Time (seconds): ${T}" >> $weka_out/run-all-ibk.out

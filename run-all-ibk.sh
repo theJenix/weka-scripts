@@ -8,6 +8,11 @@ set -e
 # Get time as a UNIX timestamp (seconds elapsed since Jan 1, 1970 0:00 UTC)
 T="$(date +%s)"
 
+rm -f $weka_out/run-all-ibk-*.out
+
+alloutlog=$weka_out/run-all-ibk-$$.out
+echo "" > $alloutlog
+
 nneighbors=(1 5 10 15 20 25 30 35 40 )
 windowSizes=( 0 1 5 10 15 20 25 30 50 )
 weighting=( '-' '-I' '-F' )
@@ -21,12 +26,12 @@ do
       for w in "${weighting[@]}"
       do
         echo "Running ./run-ibk.sh $1 $nn $ws $w $1_ibk_nn${nn}_ws${ws}_w${w}.out"
-        echo "Running ./run-ibk.sh $1 $nn $ws $w $1_ibk_nn${nn}_ws${ws}_w${w}.out" > $weka_out/run-all-ibk.out
+        echo "Running ./run-ibk.sh $1 $nn $ws $w $1_ibk_nn${nn}_ws${ws}_w${w}.out" >> $alloutlog
         ./run-ibk.sh $1 $nn $ws $w $1_ibk_nn${nn}_ws${ws}_w${w}.out
       done
     else
       echo "Running ./run-ibk.sh $1 $nn $ws $w $1_ibk_nn${nn}_ws${ws}_w.out"
-      echo "Running ./run-ibk.sh $1 $nn $ws $w $1_ibk_nn${nn}_ws${ws}_w.out" > $weka_out/run-all-ibk.out
+      echo "Running ./run-ibk.sh $1 $nn $ws $w $1_ibk_nn${nn}_ws${ws}_w.out" >> $alloutlog 
       ./run-ibk.sh $1 $nn $ws - $1_ibk_nn${nn}_ws${ws}_w.out
     fi
   done
@@ -36,4 +41,4 @@ done
 . extractAndProcessIBk.sh $1
 
 T="$(($(date +%s)-T))"
-echo "Total Elapsed Time (seconds): ${T}" >> $weka_out/run-all-ibk.out
+echo "Total Elapsed Time (seconds): ${T}" >> $alloutlog
